@@ -1,3 +1,5 @@
+import Text.Show.Functions()
+
 type Desgaste = Float
 type Patente = String
 type Fecha = (Int, Int, Int)
