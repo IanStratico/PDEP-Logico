@@ -107,7 +107,7 @@ esPicante(Provincia):-
 % -----
 % -----     PUNTO 3
 % -----
-
+%HOLAS 
 intencionDeVotoEn(buenosAires, rojo, 40).
 intencionDeVotoEn(buenosAires, azul, 30).
 intencionDeVotoEn(buenosAires, amarillo, 30).
