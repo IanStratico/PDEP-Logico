@@ -116,7 +116,7 @@ comprarConCupones :: Persona -> Comida -> Comida
 comprarConCupones unaPersona unaComida = foldr ($) unaComida (cupones unaPersona)
 
 vocales :: [Char]
-vocales = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U']
+vocales = ['a', 'e', 'i', 'o', 'u', 'A', 'E', 'I', 'O', 'U'] -- puedo hacer vocales = "aeiouAEIOU"
 
 noEsVocal :: Char -> Bool
 noEsVocal letra = notElem letra vocales
