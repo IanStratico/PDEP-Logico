@@ -195,7 +195,7 @@ paloMasUtil unJugador unosObstaculos = maximoSegun (flip cantidadObstaculosSuper
 -- ordenarPuntos (x:xs) = mayorSegun snd x (head xs) : ordenarPuntos xs
 
 pierdenLaApuesta :: [(Jugador, Puntos)] -> [String]
-pierdenLaApuesta puntosDeTorneo = (map (padre.jugadorDeTorneo) . filter (not . gano puntosDeTorneo)) puntosDeTorneo
+pierdenLaApuesta puntosDeTorneo = (map (padre.fst) . filter (not . gano puntosDeTorneo)) puntosDeTorneo
 
 gano :: [(Jugador, Puntos)] -> (Jugador, Puntos) -> Bool
-gano puntosDeTorneo puntosDeUnJugador = (all ((< puntosGanados puntosDeUnJugador).puntosGanados). filter (/= puntosDeUnJugador)) puntosDeTorneo
+gano puntosDeTorneo puntosDeUnJugador = (all ((< snd puntosDeUnJugador).snd). filter (/= puntosDeUnJugador)) puntosDeTorneo
