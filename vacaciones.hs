@@ -146,3 +146,10 @@ espiritualidad unTour unTurista = (sum.map (deltaExcurcionSegun stress unTurista
 
 -- lesResultoConveniente :: Tour -> [Turista] -> Bool
 -- lesResultoConveniente unTour unosTuristas = 
+
+inficitasPlayas :: Tour
+inficitasPlayas = irALaPlaya : inficitasPlayas 
+
+-- no porque nunca terminaria de evaluarce el tour
+
+-- no porque no se puede saber si les fue conveniente a los turistas hacerlo
