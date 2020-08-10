@@ -153,3 +153,5 @@ inficitasPlayas = irALaPlaya : inficitasPlayas
 -- no porque nunca terminaria de evaluarce el tour
 
 -- no porque no se puede saber si les fue conveniente a los turistas hacerlo
+
+-- hola
