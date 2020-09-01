@@ -46,12 +46,12 @@ esDeTipo(enigmatica(Candados),Dificultad):-
 puedeSalir(Persona,Sala):-
     persona(Persona,_,Caracteristicas),
     not(member(claustrofobia, Caracteristicas)),
-    nivelDeDificultadDeLaSala(Sala,Dificultad),
-    Dificultad == 1.
+    nivelDeDificultadDeLaSala(Sala,Dificultad), % tenia que usar pattern matchig, osea no decir dificultad == 1 y poner directamente el 1 
+    Dificultad == 1. % borrar la palabra dificultad de la linea de arriba y poner un  en su lugar, ademas borrar esta linea, es innecesaria
 puedeSalir(Persona,Sala):-
     persona(Persona,Edad,Caracteristicas),
-    not(member(claustrofobia, Caracteristicas)),
-    Edad > 13,
+    not(member(claustrofobia, Caracteristicas)), % hacer una consulta que para abstraer si una persona es claustrofobica para evitar rep logica
+    Edad > 13, % hacer una abstraccion de las condiciones de edad y dificultad para no repetir logica (ver solucion sugerida)
     nivelDeDificultadDeLaSala(Sala,Dificultad),
     Dificultad < 5.
 
@@ -71,11 +71,11 @@ empresaCopada(Empresa):-
     sumaDeDificultadesSalasDeEmpresa(Empresa,TotalDeDificultades),
     TotalDeDificultades / CantidadDeSalas < 4.
 
-cantidadDeSalasDeEmpresa(Empresa,CantidadDeSalas):-
+cantidadDeSalasDeEmpresa(Empresa,CantidadDeSalas):- % este findall no es necesario
     findall(Sala,esSalaDe(Sala,Empresa),Salas),
     length(Salas,CantidadDeSalas).    
 
-sumaDeDificultadesSalasDeEmpresa(Empresa,TotalDeDificultades):-
+sumaDeDificultadesSalasDeEmpresa(Empresa,TotalDeDificultades):- % si hago un lenght de dificultades tambien haria referencia a la cantidad
     findall(Dificultad,(esSalaDe(Sala,Empresa),nivelDeDificultadDeLaSala(Sala,Dificultad)),Dificultades),
-    sum_list(Dificultades, TotalDeDificultades).
+    sum_list(Dificultades, TotalDeDificultades). % total de salas ya que cada sala tiene 1 dificultad, por eso esta demas el otro findall
 
