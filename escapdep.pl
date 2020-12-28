@@ -45,15 +45,18 @@ esDeTipo(enigmatica(Candados),Dificultad):-
     
 puedeSalir(Persona,Sala):-
     persona(Persona,_,Caracteristicas),
-    not(member(claustrofobia, Caracteristicas)),
-    nivelDeDificultadDeLaSala(Sala,Dificultad), % tenia que usar pattern matchig, osea no decir dificultad == 1 y poner directamente el 1 
-    Dificultad == 1. % borrar la palabra dificultad de la linea de arriba y poner un  en su lugar, ademas borrar esta linea, es innecesaria
+    not(esPersonaClaustrofobica(Caracteristicas)),
+    nivelDeDificultadDeLaSala(Sala,1).% CORREGIDO % tenia que usar pattern matchig, osea no decir dificultad == 1 y poner directamente el 1 
+   % Dificultad == 1. CORREGIDO% borrar la palabra dificultad de la linea de arriba y poner un 1 en su lugar, ademas borrar esta linea, es innecesaria
 puedeSalir(Persona,Sala):-
     persona(Persona,Edad,Caracteristicas),
-    not(member(claustrofobia, Caracteristicas)), % hacer una consulta que para abstraer si una persona es claustrofobica para evitar rep logica
-    Edad > 13, % hacer una abstraccion de las condiciones de edad y dificultad para no repetir logica (ver solucion sugerida)
+    not(esPersonaClaustrofobica(Caracteristicas)),% CORREGIDO % hacer una consulta que para abstraer si una persona es claustrofobica para evitar rep logica
+    Edad > 13, % Esto queda asi, no me rompan las pelotas% hacer una abstraccion de las condiciones de edad y dificultad para no repetir logica (ver solucion sugerida)
     nivelDeDificultadDeLaSala(Sala,Dificultad),
     Dificultad < 5.
+
+esPersonaClaustrofobica(Caracteristicas):-
+    member(claustrofobia,Caracteristicas).
 
 tieneSuerte(Persona,Sala):-
     puedeSalir(Persona,Sala),
@@ -67,15 +70,15 @@ esMacabra(Empresa):-
 empresaCopada(Empresa):-
     esSalaDe(_,Empresa),
     not(esMacabra(Empresa)),
-    cantidadDeSalasDeEmpresa(Empresa,CantidadDeSalas),
-    sumaDeDificultadesSalasDeEmpresa(Empresa,TotalDeDificultades),
-    TotalDeDificultades / CantidadDeSalas < 4.
+    sumaDeDificultadesSalasDeEmpresa(Empresa,TotalDeDificultades,CantidadDeSalas),
+    (TotalDeDificultades / CantidadDeSalas) < 4.
 
-cantidadDeSalasDeEmpresa(Empresa,CantidadDeSalas):- % este findall no es necesario
-    findall(Sala,esSalaDe(Sala,Empresa),Salas),
-    length(Salas,CantidadDeSalas).    
+% cantidadDeSalasDeEmpresa(Empresa,CantidadDeSalas):- % este findall no es necesario
+%     findall(Sala,esSalaDe(Sala,Empresa),Salas),
+%     length(Salas,CantidadDeSalas). CORREGIDO    
 
-sumaDeDificultadesSalasDeEmpresa(Empresa,TotalDeDificultades):- % si hago un lenght de dificultades tambien haria referencia a la cantidad
+sumaDeDificultadesSalasDeEmpresa(Empresa,TotalDeDificultades,CantidadDeSalas):- % CORREGIDO % si hago un lenght de dificultades tambien haria referencia a la cantidad de salas
     findall(Dificultad,(esSalaDe(Sala,Empresa),nivelDeDificultadDeLaSala(Sala,Dificultad)),Dificultades),
+    length(Dificultades,CantidadDeSalas),
     sum_list(Dificultades, TotalDeDificultades). % total de salas ya que cada sala tiene 1 dificultad, por eso esta demas el otro findall
 
